@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+  <title>Checkout</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f1e3;
+      color: #3e2a47;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #e76f51;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      background-color: #f4a261;
+      padding: 10px;
+      border-radius: 50px;
+      color: white;
+    }
+
+    section {
+      margin: 40px 0;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: #3e2a47;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      text-align: center;
+      color: #6c4f6d;
+    }
+
+    button {
+      padding: 12px 20px;
+      background-color: #f4a261;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: block;
+      margin: 20px auto;
+    }
+
+    button:hover {
+      background-color: #e76f51;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background-color: #f4a261;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .container {
+        width: 95%;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      button {
+        padding: 10px 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      .container {
+        width: 100%;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        padding: 8px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Checkout</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Book a Session</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="checkout">
+    <div class="container">
+      <h2>Review Your Booking</h2>
+      <div id="booking-info">
+        <p><strong>Full Name:</strong> <span id="checkout-name"></span></p>
+        <p><strong>Email Address:</strong> <span id="checkout-email"></span></p>
+        <p><strong>Selected Module:</strong> <span id="checkout-subject"></span></p>
+        <p><strong>Preferred Date:</strong> <span id="checkout-date"></span></p>
+        <p><strong>Preferred Time:</strong> <span id="checkout-time"></span></p>
+      </div>
+
+      <button onclick="sendEmail()">Confirm Booking Details</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; Smart Path Tutoring Classes. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      emailjs.init("amO70G2QS7i-3H9Fa"); 
+    })();
+
+    function getQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        name: params.get('name'),
+        email: params.get('email'),
+        subject: params.get('subject'),
+        date: params.get('date'),
+        time: params.get('time')
+      };
+    }
+
+    function displayBookingInfo() {
+      const data = getQueryParams();
+      document.getElementById('checkout-name').textContent = data.name;
+      document.getElementById('checkout-email').textContent = data.email;
+      document.getElementById('checkout-subject').textContent = data.subject;
+      document.getElementById('checkout-date').textContent = data.date;
+      document.getElementById('checkout-time').textContent = data.time;
+    }
+
+    function sendEmail() {
+      const bookingData = getQueryParams();
+      const templateParams = {
+        name: bookingData.name,
+        email: bookingData.email,
+        subject: bookingData.subject,
+        date: bookingData.date,
+        time: bookingData.time
+      };
+
+      emailjs.send("service_j5m8wkn", "YOUR_TEMPLATE_ID", templateParams)
+        .then(function(response) {
+          alert("Booking details sent successfully!");
+        }, function(error) {
+          alert("Failed to send email. Please try again.");
+          console.error(error);
+        });
+    }
+
+    window.onload = displayBookingInfo;
+  </script>
+</body>
+</html>
+

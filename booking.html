@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book a Tutoring Session</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f7f1e3; 
+            color: #3e2a47; 
+        }
+
+        header {
+            background-color: #e76f51; 
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #f4a261; 
+            padding: 10px 10px;
+            border-radius: 50px;
+            color: white;
+        }
+
+        section {
+            margin: 40px 0;
+            animation: fadeIn 1s ease-out;
+            padding-left: 100px;
+            max-width: 80%;
+            justify-content: center;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #3e2a47; 
+            text-align: center;
+        }
+
+        p {
+            font-size: 1rem;
+            text-align: center;
+            color: #6c4f6d; 
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #3e2a47;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #e76f51; 
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #f4a261; 
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: #f4a261; 
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Book a Tutoring Session</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="index.html #modules">MODULES</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Booking Form -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <h2>Schedule Your Session</h2>
+            <form action="checkout.html" method="GET">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                </div>
+                <div class="form-group">
+                    <label for="subject">Select Module</label>
+                    <select id="subject" name="subject" required aria-label="Select a module">
+                        <option value="" disabled selected>Select a module</option>
+                        <option value="IsiZulu-HM">IsiZulu Home Language</option>
+                        <option value="IsiZulu-FAL">IsiZulu-FAL</option>
+                        <option value="English-HM">English Home Language</option>
+                        <option value="English-FAL">English FAL</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Social-science-SS">Social Science</option>
+                        <option value="Social-science-H">History</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Time</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <button type="submit">Proceed to Checkout</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; Smart Path Tutoring Classes. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Check if there's a selected subject in localStorage
+        window.addEventListener('load', () => {
+        const selectedSubject = localStorage.getItem('selectedSubject');
+        if (selectedSubject) {
+            const subjectSelect = document.getElementById('subject');
+            const optionElements = subjectSelect.querySelectorAll('option');
+            
+            // Loop through options to find the matching one
+            optionElements.forEach(option => {
+                if (option.textContent.includes(selectedSubject)) {
+                    option.selected = true;
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
